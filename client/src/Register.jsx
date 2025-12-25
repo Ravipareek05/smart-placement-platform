@@ -38,14 +38,17 @@ export default function Register() {
   return (
     <div
       className="
-        min-h-screen grid place-items-center
+        min-h-screen relative grid place-items-center
         bg-gradient-to-br
         from-gray-100 via-gray-200 to-gray-100
         dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
       "
     >
-        {/* 🌗 ADD THIS LINE */}
-    <ThemeToggle />
+      {/* 🌗 Theme Toggle – fixed position */}
+      <div className="absolute top-5 right-5">
+        <ThemeToggle />
+      </div>
+
       <div
         className="
           w-full max-w-md rounded-2xl p-8 shadow-2xl

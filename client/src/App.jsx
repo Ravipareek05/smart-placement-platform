@@ -1,25 +1,28 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Login.jsx";
-import Register from "./Register.jsx";
-import Problems from "./Problems.jsx";
-import Dashboard from "./Dashboard.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
-import AdminDashboard from "./AdminDashboard";
-import AdminRoute from "./AdminRoute";
+
+import Login from "./Login";
+import Register from "./Register";
+import Dashboard from "./Dashboard";
+import Problems from "./Problems";
 import SolveProblem from "./SolveProblem";
+import AdminDashboard from "./AdminDashboard";
+
+import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default */}
-        <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Public */}
+        {/* ---------- DEFAULT ---------- */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* ---------- PUBLIC ---------- */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* User protected */}
+        {/* ---------- USER PROTECTED ---------- */}
         <Route
           path="/dashboard"
           element={
@@ -37,15 +40,18 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* ✅ SOLVE PAGE (USER + ADMIN) */}
         <Route
-          path="/solve/:id"
+          path="/problems/:id"
           element={
             <ProtectedRoute>
               <SolveProblem />
             </ProtectedRoute>
           }
         />
-        {/* ✅ ADMIN PROTECTED */}
+
+        {/* ---------- ADMIN ONLY ---------- */}
         <Route
           path="/admin"
           element={
@@ -54,6 +60,10 @@ function App() {
             </AdminRoute>
           }
         />
+
+        {/* ---------- FALLBACK ---------- */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
       </Routes>
     </BrowserRouter>
   );
